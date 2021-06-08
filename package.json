@@ -1,0 +1,19 @@
+{
+  "name": "p7_lespetitsplats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./style/index.sass ./style/index.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChristopheRibault/ChristopheRibault_7_31052021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChristopheRibault/ChristopheRibault_7_31052021/issues"
+  },
+  "homepage": "https://github.com/ChristopheRibault/ChristopheRibault_7_31052021#readme"
+}

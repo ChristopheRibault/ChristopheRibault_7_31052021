@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+  >
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style/index.css">
+  <title>Les Petits Plats</title>
+</head>
+<body>
+  <header>
+    <img src="assets/logo.svg" alt="Les petits plats">
+    <h1>Les petits plats</h1>
+  </header>
+  <nav>
+    <form class="search-form" id="search-form">
+      <fieldset class="search-form__input-ctn">
+        <input type="text" class="search-form__input" name="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" />
+        <button type="submit" class="search-form__btn">
+          <img src="assets/search.svg" alt="">
+        </button>
+      </fieldset>
+      <fieldset class="search-form__dropdown-ctn">
+        <div class="dropdown">
+          <button
+            id="ingredients-dropdown"
+            class="btn btn-primary dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Ingredients</button>
+          <div class="dropdown-menu" aria-labelledby="ingredients-dropdown">
+            <button href="#" class="dropdown-item btn">1</button>
+            <button href="#" class="dropdown-item btn">2</button>
+            <button href="#" class="dropdown-item btn">3</button>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button
+            id="device-dropdown"
+            class="btn btn-success dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Appareil</button>
+          <div class="dropdown-menu" aria-labelledby="device-dropdown">
+            <button href="#" class="dropdown-item btn">1</button>
+            <button href="#" class="dropdown-item btn">2</button>
+            <button href="#" class="dropdown-item btn">3</button>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button
+            id="tools-dropdown"
+            class="btn btn-danger dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Ustensiles</button>
+          <div class="dropdown-menu" aria-labelledby="tools-dropdown">
+            <button href="#" class="dropdown-item btn">1</button>
+            <button href="#" class="dropdown-item btn">2</button>
+            <button href="#" class="dropdown-item btn">3</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </nav>
+  <section id="results-section">
+    <h2 class="sr-only">Résultats</h2>
+    <div id="results-container" class="results-container">
+      <div class="card recipe-card">
+        <img src="" alt="" class="card-img-top recipe-card__img">
+        <div class="card-body recipe-card__body">
+          <h3 class="card-title recipe-card__title">Limonade de Coco</h3>
+          <div class="recipe-card__time">
+            <img src="assets/time.svg" alt="" class="recipe-card__time-icon">
+            <span class="recipe-card__time-txt">10 min</span>
+          </div>
+          <ul class="recipe-card__ingredients-ctn">
+            <li class="recipe-card__ingredient">Lait de coco: 400ml</li>
+            <li class="recipe-card__ingredient">Jus de citron: 2</li>
+            <li class="recipe-card__ingredient">Créme de coco: 4 cuillères</li>
+            <li class="recipe-card__ingredient">Sucre: 20g</li>
+            <li class="recipe-card__ingredient">Glaçons: 2</li>
+          </ul>
+          <p class="card-text recipe-card__instructions">
+            Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus facilis at, sunt tempora excepturi optio consequuntur cum, ratione pariatur, recusandae molestias praesentium eius omnis suscipit quod corporis reprehenderit aut dolores.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>

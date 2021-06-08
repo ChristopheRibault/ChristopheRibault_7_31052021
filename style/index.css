@@ -1,0 +1,133 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 1em;
+}
+
+.btn-primary {
+  background-color: #3282f7;
+  border: #3282f7;
+}
+
+.btn-success {
+  background-color: #68d9a4;
+  border: #68d9a4;
+}
+
+.btn-danger {
+  background-color: #d04f4f;
+  border: #d04f4f;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-family: "DM Sans";
+  font-weight: 700;
+  color: #d04f4f;
+}
+
+.dropdown-toggle {
+  padding: 1em;
+}
+.dropdown-toggle::after {
+  margin-left: 1em;
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  max-width: 100%;
+  height: 364px;
+  max-height: 90vw;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.recipe-card__img {
+  width: 100%;
+  height: 178px;
+  background-color: #c7bebe;
+}
+.recipe-card__body {
+  background-color: #e7e7e7;
+  height: 100%;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 50% 1fr 6em;
+  grid-template-rows: 1fr 3fr;
+  font-size: 0.7em;
+  overflow: hidden;
+}
+.recipe-card__title {
+  grid-column: 1/span 2;
+  grid-row: 1;
+  align-self: center;
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: 900;
+}
+.recipe-card__time {
+  grid-column: 3;
+  grid-row: 1;
+  font-size: 1.2em;
+  font-weight: 900;
+  align-self: center;
+}
+.recipe-card__ingredients-ctn {
+  grid-column: 1;
+  grid-row: 2;
+  list-style-type: none;
+  padding: 0;
+}
+.recipe-card__instructions {
+  grid-column: 2/span 2;
+  grid-row: 2;
+  max-height: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.search-form__input-ctn {
+  background-color: #e7e7e7;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 0.5em;
+  border-radius: 5px;
+}
+.search-form__input {
+  border: none;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
+.search-form__btn {
+  border: none;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+}
+.search-form__dropdown-ctn {
+  margin: 1em 0;
+  display: flex;
+  flex-flow: row wrap;
+}
+.search-form__dropdown-ctn > .dropdown {
+  margin-right: 1em;
+}
+
+/*# sourceMappingURL=index.css.map */

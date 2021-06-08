@@ -1,0 +1,51 @@
+.recipe-card
+  display: flex
+  flex-direction: column
+  width: 380px
+  max-width: 100%
+  height: 364px
+  max-height: 90vw
+  border-radius: 5px
+  overflow: hidden
+  &__img
+    width: 100%
+    height: 178px
+    background-color: #c7bebe
+  &__body
+    background-color: #e7e7e7
+    height: 100%
+    display: grid
+    grid-gap: 10px
+    grid-template-columns: 50% 1fr 6em
+    grid-template-rows: 1fr 3fr
+    font-size: .7em
+    overflow: hidden
+
+  &__title
+    grid-column: 1/span 2
+    grid-row: 1
+    align-self: center
+    margin: 0
+    font-size: 1.5em
+    font-weight: 900
+  &__time
+    grid-column: 3
+    grid-row: 1
+    font-size: 1.2em
+    font-weight: 900
+    align-self: center
+  &__ingredients-ctn
+    grid-column: 1
+    grid-row: 2
+    list-style-type: none
+    padding: 0
+  &__instructions
+    grid-column: 2/span 2
+    grid-row: 2
+    max-height: 100%
+    text-overflow: ellipsis
+    overflow: hidden
+    display: -webkit-box
+    -webkit-line-clamp: 6
+    -webkit-box-orient: vertical
+
