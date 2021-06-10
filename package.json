@@ -108,6 +108,8 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0"
+    "babel-polyfill": "^6.26.0",
+    "bluebird": "^3.7.2",
+    "miragejs": "^0.1.41"
   }
 }

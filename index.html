@@ -14,7 +14,8 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap" rel="stylesheet">
   <script src="dist/style.bundle.js"></script>
-  <script src="dist/app.bundle.js"></script>
+  <script src="dist/polyfill.bundle.js" defer></script>
+  <script src="dist/app.bundle.js" defer></script>
 
   <title>Les Petits Plats</title>
 </head>
@@ -24,9 +25,9 @@
     <h1>Les petits plats</h1>
   </header>
   <nav>
-    <form class="search-form" id="search-form">
+    <form class="search-form" id="search-form" name="search">
       <fieldset class="search-form__input-ctn">
-        <input type="text" class="search-form__input" name="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" />
+        <input type="text" class="search-form__input" name="searchInput" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" />
         <button type="submit" class="search-form__btn">
           <img src="assets/search.svg" alt="">
         </button>
@@ -80,26 +81,7 @@
   <section id="results-section">
     <h2 class="sr-only">Résultats</h2>
     <div id="results-container" class="results-container">
-      <div class="card recipe-card">
-        <img src="" alt="" class="card-img-top recipe-card__img">
-        <div class="card-body recipe-card__body">
-          <h3 class="card-title recipe-card__title">Limonade de Coco</h3>
-          <div class="recipe-card__time">
-            <img src="assets/time.svg" alt="" class="recipe-card__time-icon">
-            <span class="recipe-card__time-txt">10 min</span>
-          </div>
-          <ul class="recipe-card__ingredients-ctn">
-            <li class="recipe-card__ingredient">Lait de coco: 400ml</li>
-            <li class="recipe-card__ingredient">Jus de citron: 2</li>
-            <li class="recipe-card__ingredient">Créme de coco: 4 cuillères</li>
-            <li class="recipe-card__ingredient">Sucre: 20g</li>
-            <li class="recipe-card__ingredient">Glaçons: 2</li>
-          </ul>
-          <p class="card-text recipe-card__instructions">
-            Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus facilis at, sunt tempora excepturi optio consequuntur cum, ratione pariatur, recusandae molestias praesentium eius omnis suscipit quod corporis reprehenderit aut dolores.
-          </p>
-        </div>
-      </div>
+      
     </div>
   </section>
   
