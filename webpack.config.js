@@ -28,6 +28,14 @@ module.exports = {
         },
       },
       {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
+      {
         test: /\.sass$/,
         exclude: path.resolve(__dirname, 'node_modules'),
         use: [

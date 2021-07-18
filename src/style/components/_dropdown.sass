@@ -1,4 +1,62 @@
-.dropdown-toggle
-  padding: 1em
-  &::after
-    margin-left: 1em
+.dropdown
+  border: none
+  border-radius: 5px
+  min-width: 10em
+  margin-bottom: 1em
+  &--ingredients
+    background-color: $secondary-color
+    & input::placeholder
+      color: lighten($secondary-color, 20%)
+  &--appliance
+    background-color: $tertiary-color
+    & input::placeholder
+      color: lighten($tertiary-color, 20%)
+  &--ustensils
+    background-color: $primary-color
+    & input::placeholder
+      color: lighten($primary-color, 20%)
+  &__btn
+    border: none
+    background-color: rgba(0, 0, 0, 0)
+    color: #fff
+    font-weight: 700
+    cursor: pointer
+    width: 100%
+    height: 100%
+    padding: 1em
+    text-align: start
+    &::after
+      content: url(/assets/arrow_down.svg)
+      position: absolute
+      right: 0
+      margin-inline-end: 1em
+  &__content
+    display: none
+    padding: 1em
+    // pointer-events: none
+  &__collapse
+    &::after
+      content: url(/assets/arrow_up.svg)
+      position: absolute
+      right: 0
+      top: 0
+      margin-inline-end: 1em
+      margin-block-start: 1em
+      cursor: pointer
+      // pointer-events: all
+  &__input
+    z-index: 1
+    background-color: rgba(0, 0, 0, 0)
+    border: none
+    margin-right: 2em
+  &__list
+    list-style-type: none
+    padding: 0
+    color: #fff
+    display: flex
+    flex-flow: row wrap
+    writing-mode: vertical-lr
+    max-height: 200px
+  &__tag
+    writing-mode: horizontal-tb
+    margin-right: 1em

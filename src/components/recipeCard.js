@@ -3,7 +3,7 @@ export default class RecipeCard extends HTMLDivElement {
   constructor(data) {
     super();
     this._data = data;
-    this.classList.add('card', 'recipe-card');
+    this.classList.add('recipe-card');
     this.init();
   }
 
@@ -17,20 +17,20 @@ export default class RecipeCard extends HTMLDivElement {
 
   setImage(src = '') {
     this.image = document.createElement('img');
-    this.image.classList.add('card-img-top', 'recipe-card__img');
+    this.image.classList.add('recipe-card__img');
     this.image.setAttribute('src', src);
     this.appendChild(this.image);
   }
 
   setBody() {
     this.cardBody = document.createElement('div');
-    this.cardBody.classList.add('card-body', 'recipe-card__body');
+    this.cardBody.classList.add('recipe-card__body');
     this.appendChild(this.cardBody);
   }
 
   setName(name = '') {
     this.name = document.createElement('h3');
-    this.name.classList.add('card-title', 'recipe-card__title');
+    this.name.classList.add('recipe-card__title');
     this.name.textContent = name;
     this.cardBody.appendChild(this.name);
   }
@@ -70,7 +70,7 @@ export default class RecipeCard extends HTMLDivElement {
 
   setDescription(description = '') {
     this.description = document.createElement('p');
-    this.description.classList.add('card-text', 'recipe-card__instructions');
+    this.description.classList.add('recipe-card__instructions');
     this.description.textContent = description;
     this.cardBody.appendChild(this.description);
   }

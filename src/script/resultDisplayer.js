@@ -9,9 +9,6 @@ export default class ResultDisplayer {
   }
 
   async createCards(results) {
-    if (customElements.get('recipe-card') === undefined) {
-      customElements.define('recipe-card', RecipeCard, { extends: 'div' });
-    }
     return Promise.map(
       results,
       recipe => {
@@ -21,7 +18,7 @@ export default class ResultDisplayer {
   }
 
   async displayResults(results) {
-    console.log('DISPLAY', results);
+    this.resultsContainer.innerHTML = '';
     const cards = await this.createCards(results);
     this.resultsContainer.append(...cards);
   }
@@ -31,6 +28,10 @@ export default class ResultDisplayer {
       'newResults',
       (e) => this.displayResults(e.detail),
     );
+
+    document.addEventListener('clearSearch', () => {
+      this.resultsContainer.innerHTML = '';
+    });
   }
 
 }

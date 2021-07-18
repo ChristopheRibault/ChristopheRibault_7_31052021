@@ -5,7 +5,6 @@ export default class SearchEngine {
   constructor(data, queries = null) {
     this._data = data;
     this._queries = queries;
-    console.log(this.queries);
   }
 
   get data() {

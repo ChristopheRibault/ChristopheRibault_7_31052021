@@ -8,7 +8,7 @@ export default class ArrayUtils {
   static removeDuplicates(array) {
     array.sort();
     for (let i = array.length -1; i > 0; i--) {
-      if(array[i] === array[i - 1]) {
+      if(array[i].toLowerCase() === array[i - 1].toLowerCase()) {
         array.splice(i, 1);
       }
     }

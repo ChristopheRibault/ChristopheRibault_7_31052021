@@ -101,6 +101,7 @@
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.6",
     "eslint": "^7.28.0",
+    "file-loader": "^6.2.0",
     "sass": "^1.34.1",
     "sass-loader": "^12.0.0",
     "style-loader": "^2.0.0",
