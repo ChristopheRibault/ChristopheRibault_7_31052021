@@ -8,7 +8,7 @@ export default class EventsHandler {
 
   init() {
     document.addEventListener('newSearch', (e) => {
-      fetch(`/api/recipes?q=${e.detail}`)
+      fetch(`/api/recipes?q=${e.detail.query}`)
         .then(res => {
           return res.json();
         })
