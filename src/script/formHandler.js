@@ -6,28 +6,66 @@ export default class FormHandler {
 
   constructor() {
     this.searchForm = document.forms.search;
+    this.dropdowns = {
+      ingredients: new Dropdown('ingredients', 'Ingrédients'),
+      appliances: new Dropdown('appliance', 'Appareil'),
+      ustensils: new Dropdown('ustensils', 'Ustensiles'),
+    };
+
     this.searchInput = this.searchForm.elements.searchInput;
-    this.ingredientsDD = new Dropdown('ingredients', 'Ingrédients');
-    this.appliancesDD = new Dropdown('appliance', 'Appareil');
-    this.ustensilsDD = new Dropdown('ustensils', 'Ustensiles');
-    this.ingredientsInput = this.searchForm.elements.ingredientsInput;
-    this.ustensilsInput = this.searchForm.elements.ustensilsInput;
-    this.applianceInput = this.searchForm.elements.applianceInput;
-    this.filters = [];
+    this.tagContainer = this.searchForm.elements['tag-ctn'];
+
+    this.inputs = {
+      ingredients: this.searchForm.elements.ingredientsInput,
+      ustensils: this.searchForm.elements.ustensilsInput,
+      appliances: this.searchForm.elements.applianceInput,
+    };
+    this._queries = {
+      query: '',
+      ingredients: [],
+      applaince: '',
+      ustensils: [],
+    };
+    this.filters = {};
     this.init();
+  }
+
+  get queries() {
+    return this._queries;
+  }
+
+  set queries(data) {
+    this._queries = data;
+    if (data.query.length >= MIN_LENGTH_SEARCH) {
+      this.submitSearch();
+    } else {
+      this.clearSearch();
+    }
   }
 
   updateLists(data) {
     this.filters = new FilterExtractor().extract(data);
-    this.ingredientsDD.updateList(this.filters.ingredients);
-    this.appliancesDD.updateList(this.filters.appliances);
-    this.ustensilsDD.updateList(this.filters.ustensils);
+    for (const key in this.dropdowns) {
+      this.dropdowns[key].updateList(this.filters[key]);
+    }
+  }
+
+  submitSearch() {
+    document.dispatchEvent(
+      new CustomEvent(
+        'newSearch',
+        { detail: this.queries },
+      ),
+    );
   }
 
   clearSearch() {
-    this.ingredientsDD.updateList([]);
-    this.appliancesDD.updateList([]);
-    this.ustensilsDD.updateList([]);
+    document.dispatchEvent(
+      new Event('clearSearch'),
+    );
+    for (const key in this.dropdowns) {
+      this.dropdowns[key].updateList([]);
+    }
   }
 
   searchRecipes() {
@@ -48,16 +86,16 @@ export default class FormHandler {
   searchKeywords(type) {
     const types = {
       ingredients: {
-        input: this.ingredientsInput,
-        dropdown: this.ingredientsDD,
+        input: this.inputs.ingredients,
+        dropdown: this.dropdowns.ingredients,
       },
       appliances: {
-        input: this.applianceInput,
-        dropdown: this.appliancesDD,
+        input: this.inputs.appliances,
+        dropdown: this.dropdowns.appliances,
       },
       ustensils: {
-        input: this.ustensilsInput,
-        dropdown: this.ustensilsDD,
+        input: this.inputs.ustensils,
+        dropdown: this.dropdowns.ustensils,
       },
     };
 
@@ -72,14 +110,13 @@ export default class FormHandler {
   }
 
   init() {
-    this.searchInput.addEventListener('input', () => this.searchRecipes());
+    this.searchInput.addEventListener('input', () => this.queries = { query: this.searchInput.value });
 
-    this.ingredientsInput.addEventListener('input', () => this.searchKeywords('ingredients'));
-    this.applianceInput.addEventListener('input', () => this.searchKeywords('appliances'));
-    this.ustensilsInput.addEventListener('input', () => this.searchKeywords('ustensils'));
+    for (const key in this.inputs) {
+      this.inputs[key].addEventListener('input', () => this.searchKeywords(key));
+    }
 
     document.addEventListener('newResults', (e) => this.updateLists(e.detail));
-    document.addEventListener('clearSearch', () => this.clearSearch());
   }
 
 }

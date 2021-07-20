@@ -1,3 +1,5 @@
+import { Tag } from './index';
+
 export default class Dropdown extends HTMLDivElement {
 
   constructor(category = '', displayName) {
@@ -16,8 +18,15 @@ export default class Dropdown extends HTMLDivElement {
       li.id = `tag-${this.category.toLowerCase()}-${tag.toLowerCase().replaceAll(' ', '_')}`;
       li.classList.add('dropdown__tag');
       li.textContent = tag;
+      li.addEventListener('click', () => this.addTag(tag));
       this.tagList.appendChild(li);
     });
+  }
+
+  addTag(name) {
+    const tagContainer = document.getElementById('tag-ctn');
+    const tag = new Tag(this.category, name);
+    tagContainer.appendChild(tag);
   }
 
   expand(e) {
