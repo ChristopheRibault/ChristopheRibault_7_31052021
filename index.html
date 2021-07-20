@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+  >
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap" rel="stylesheet">
+  <script src="dist/style.bundle.js"></script>
+  <script src="dist/polyfill.bundle.js" defer></script>
+  <script src="dist/app.bundle.js" defer></script>
+
+  <title>Les Petits Plats</title>
+</head>
+<body>
+  <header>
+    <img src="assets/logo.svg" alt="Les petits plats">
+    <h1>Les petits plats</h1>
+  </header>
+  <nav>
+    <form class="search-form" id="search-form" name="search">
+      <fieldset class="search-form__input-ctn">
+        <input type="text" class="search-form__input" name="searchInput" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" />
+        <button type="submit" class="search-form__btn">
+          <img src="assets/search.svg" alt="">
+        </button>
+      </fieldset>
+      <fieldset id="dropdown-ctn" class="search-form__dropdown-ctn">
+        
+      </fieldset>
+    </form>
+  </nav>
+  <section id="results-section">
+    <h2 class="sr-only">Résultats</h2>
+    <div id="results-container" class="results-container">
+      
+    </div>
+  </section>
+
+</body>
+</html>
