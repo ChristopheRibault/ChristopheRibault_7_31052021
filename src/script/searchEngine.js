@@ -5,6 +5,9 @@ export default class SearchEngine {
   constructor(data, queries = null) {
     this._data = data;
     this._queries = queries;
+    this._queries.ingredients = JSON.parse(this._queries.ingredients);
+    this._queries.appliance = JSON.parse(this._queries.appliance);
+    this._queries.ustensils = JSON.parse(this._queries.ustensils);
   }
 
   get data() {
@@ -40,10 +43,61 @@ export default class SearchEngine {
     return description.search(this.queries.q) !== -1;
   }
 
+  hasIngredients(recipeIngredients) {
+    let hasAllIngredients = true;
+
+    if (this.queries.ingredients.length) {
+      this.queries.ingredients.forEach(ingredient => {
+        if (
+          !recipeIngredients.includes(ingredient.name.toLowerCase())
+        ) {
+          hasAllIngredients = false;
+        }
+      });
+    }
+
+    return hasAllIngredients;
+  }
+
+  hasappliances(recipeAppliance) {
+    console.log(this.queries.appliance);
+    if (
+      this.queries.appliance.length &&
+      !this.queries.appliance
+        .map(app => app.name.toLowerCase())
+        .includes(recipeAppliance)
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
+  hasUstensils(recipeUstensils) {
+    let hasAllUstensils = true;
+    if (this.queries.ustensils.length) {
+      this.queries.ustensils
+        .map(ust => ust.name.toLowerCase())
+        .forEach(ust => {
+          if (!recipeUstensils.includes(ust)) {
+            hasAllUstensils = false;
+          }
+        });
+    }
+
+    return hasAllUstensils;
+  }
+
   isSelected(recipe) {
-    return this.isInTitle(recipe.name) ||
+    return (this.isInTitle(recipe.name) ||
     this.isInIngredients(recipe.ingredients) ||
-    this.isInDescription(recipe.description);
+    this.isInDescription(recipe.description)) &&
+    this.hasIngredients(
+      recipe.ingredients.map(ing => ing.ingredient.toLowerCase()),
+    ) &&
+    this.hasappliances(recipe.appliance.toLowerCase()) &&
+    this.hasUstensils(recipe.ustensils.map(ust => ust.toLowerCase()));
+
   }
 
   async searchQuery() {

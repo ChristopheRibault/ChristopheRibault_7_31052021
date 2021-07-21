@@ -111,6 +111,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "bluebird": "^3.7.2",
-    "miragejs": "^0.1.41"
+    "miragejs": "^0.1.41",
+    "uuid": "^8.3.2"
   }
 }
