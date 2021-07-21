@@ -1,7 +1,8 @@
 export default class Tag extends HTMLDivElement {
 
-  constructor(category, name) {
+  constructor(id, category, name) {
     super();
+    this.id = id;
     this.category = category;
     this.name = name;
     this.classList.add('tag', `tag--${this.category.toLowerCase()}`);
@@ -25,10 +26,23 @@ export default class Tag extends HTMLDivElement {
     this.appendChild(this.button);
   }
 
+  removeTag() {
+    this.remove();
+    document.dispatchEvent(
+      new CustomEvent(
+        'removeTag',
+        { detail: {
+          id: this.id,
+          category: this.category,
+        }},
+      ),
+    );
+  }
+
   init() {
     this.setText();
     this.setDeleteBtn();
-    this.button.addEventListener('click', () => this.remove());
+    this.button.addEventListener('click', () => this.removeTag());
   }
 
 }

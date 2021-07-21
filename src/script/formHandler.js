@@ -20,27 +20,40 @@ export default class FormHandler {
       ustensils: this.searchForm.elements.ustensilsInput,
       appliances: this.searchForm.elements.applianceInput,
     };
-    this._queries = {
-      query: '',
+    this._query = '';
+    this.tags = {
       ingredients: [],
-      applaince: '',
+      appliance: [],
       ustensils: [],
     };
     this.filters = {};
     this.init();
   }
 
-  get queries() {
-    return this._queries;
+  get query() {
+    return this._query;
   }
 
-  set queries(data) {
-    this._queries = data;
-    if (data.query.length >= MIN_LENGTH_SEARCH) {
+  set query(data) {
+    if (data.length >= MIN_LENGTH_SEARCH) {
+      this._query = data;
       this.submitSearch();
     } else {
       this.clearSearch();
     }
+  }
+
+  handleNewTag(tag) {
+    this.tags[tag.category].push(tag);
+    this.submitSearch();
+  }
+
+  handleRemoveTag(tag) {
+    const index = this
+      .tags[tag.category]
+      .findIndex(el => el.id === tag.id);
+    this.tags[tag.category].splice(index, 1);
+    this.submitSearch();
   }
 
   updateLists(data) {
@@ -54,7 +67,10 @@ export default class FormHandler {
     document.dispatchEvent(
       new CustomEvent(
         'newSearch',
-        { detail: this.queries },
+        { detail: {
+          query: this.query,
+          tags: this.tags,
+        }},
       ),
     );
   }
@@ -65,21 +81,6 @@ export default class FormHandler {
     );
     for (const key in this.dropdowns) {
       this.dropdowns[key].updateList([]);
-    }
-  }
-
-  searchRecipes() {
-    if (this.searchInput.value.length >= MIN_LENGTH_SEARCH) {
-      document.dispatchEvent(
-        new CustomEvent(
-          'newSearch',
-          { detail: this.searchInput.value },
-        ),
-      );
-    } else {
-      document.dispatchEvent(
-        new Event('clearSearch'),
-      );
     }
   }
 
@@ -110,11 +111,14 @@ export default class FormHandler {
   }
 
   init() {
-    this.searchInput.addEventListener('input', () => this.queries = { query: this.searchInput.value });
+    this.searchInput.addEventListener('input', () => this.query = this.searchInput.value);
 
     for (const key in this.inputs) {
       this.inputs[key].addEventListener('input', () => this.searchKeywords(key));
     }
+
+    document.addEventListener('newTag', (e) => this.handleNewTag(e.detail));
+    document.addEventListener('removeTag', (e) => this.handleRemoveTag(e.detail));
 
     document.addEventListener('newResults', (e) => this.updateLists(e.detail));
   }

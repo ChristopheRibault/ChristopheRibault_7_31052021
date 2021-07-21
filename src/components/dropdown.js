@@ -1,9 +1,11 @@
 import { Tag } from './index';
+import { v4 } from 'uuid';
 
 export default class Dropdown extends HTMLDivElement {
 
   constructor(category = '', displayName) {
     super();
+    if (!category) throw new Error('no category');
     this.category = category;
     this.displayName = displayName;
     this.id = `dropdown-${category.toLowerCase()}`;
@@ -25,8 +27,19 @@ export default class Dropdown extends HTMLDivElement {
 
   addTag(name) {
     const tagContainer = document.getElementById('tag-ctn');
-    const tag = new Tag(this.category, name);
+    const id = v4();
+    const tag = new Tag(id, this.category, name);
     tagContainer.appendChild(tag);
+    document.dispatchEvent(
+      new CustomEvent(
+        'newTag',
+        { detail: {
+          id,
+          category: this.category,
+          name,
+        }},
+      ),
+    );
   }
 
   expand(e) {
