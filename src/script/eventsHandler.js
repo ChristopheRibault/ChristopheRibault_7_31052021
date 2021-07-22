@@ -22,7 +22,6 @@ export default class EventsHandler {
 
   sendRequest(data) {
     const url = encodeURI(this.createUrl(data));
-    console.log(url);
     fetch(url)
       .then(res => {
         return res.json();

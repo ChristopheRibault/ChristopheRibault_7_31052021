@@ -19,8 +19,14 @@ export default class ResultDisplayer {
 
   async displayResults(results) {
     this.resultsContainer.innerHTML = '';
-    const cards = await this.createCards(results);
-    this.resultsContainer.append(...cards);
+    if (results.length) {
+      const cards = await this.createCards(results);
+      this.resultsContainer.append(...cards);
+    } else {
+      const notFoundMessage = document.createElement('p');
+      notFoundMessage.textContent = 'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.';
+      this.resultsContainer.appendChild(notFoundMessage);
+    }
   }
 
   init() {

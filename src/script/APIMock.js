@@ -12,5 +12,10 @@ export default new Server({
         request.queryParams,
       ).searchQuery(); 
     });
+
+    this.get('/tags', () => {
+      return new SearchEngine(data)
+        .searchTags();
+    });
   },
 });
