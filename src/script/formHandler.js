@@ -84,27 +84,20 @@ export default class FormHandler {
     }
   }
 
-  searchKeywords(type) {
-    const types = {
-      ingredients: {
-        input: this.inputs.ingredients,
-        dropdown: this.dropdowns.ingredients,
-      },
-      appliances: {
-        input: this.inputs.appliances,
-        dropdown: this.dropdowns.appliances,
-      },
-      ustensils: {
-        input: this.inputs.ustensils,
-        dropdown: this.dropdowns.ustensils,
-      },
-    };
+  async searchKeywords(type) {
+    let tags = this.filters;
+    if (!tags || !tags.length) {
+      tags = await fetch('/api/tags')
+        .then(res => {
+          return res.json();
+        });
+    }
 
-    types[type].dropdown.updateList(
-      this.filters[type].filter(item => {
+    this.dropdowns[type].updateList(
+      tags[type].filter(item => {
         return item
           .toLowerCase()
-          .search(types[type].input.value.toLowerCase())
+          .search(this.inputs[type].value.toLowerCase())
         !== -1;
       }),
     );

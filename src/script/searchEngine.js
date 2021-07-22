@@ -5,9 +5,11 @@ export default class SearchEngine {
   constructor(data, queries = null) {
     this._data = data;
     this._queries = queries;
-    this._queries.ingredients = JSON.parse(this._queries.ingredients);
-    this._queries.appliance = JSON.parse(this._queries.appliance);
-    this._queries.ustensils = JSON.parse(this._queries.ustensils);
+    if (this._queries) {
+      this._queries.ingredients = JSON.parse(this._queries.ingredients);
+      this._queries.appliance = JSON.parse(this._queries.appliance);
+      this._queries.ustensils = JSON.parse(this._queries.ustensils);
+    }
   }
 
   get data() {
@@ -60,7 +62,6 @@ export default class SearchEngine {
   }
 
   hasappliances(recipeAppliance) {
-    console.log(this.queries.appliance);
     if (
       this.queries.appliance.length &&
       !this.queries.appliance
@@ -105,5 +106,38 @@ export default class SearchEngine {
       this.data,
       (recipe => this.isSelected(recipe)),
     );
+  }
+
+  getIngredients() {
+    const ingredients = [];
+    this.data.forEach(recipe => {
+      recipe.ingredients.forEach(ingredient => {
+        ingredients.push(ingredient.ingredient);
+      });
+    });
+
+    return new Set(ingredients);
+  }
+
+  getAppliances() {
+    return new Set(this.data.map(recipe => recipe.appliance));
+  }
+
+  getUstensils() {
+    const ustensils = [];
+    this.data.forEach(recipe => {
+      ustensils.push(...recipe.ustensils);
+    });
+
+    return new Set(ustensils);
+  }
+
+  async searchTags() {
+    console.log('OK');
+    return Promise.props({
+      ingredients: this.getIngredients(),
+      appliances: this.getAppliances(),
+      ustensils: this.getUstensils(),
+    });
   }
 }
