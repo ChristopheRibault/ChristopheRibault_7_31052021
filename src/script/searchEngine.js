@@ -28,84 +28,41 @@ export default class SearchEngine {
     throw new Error('Can\'t set queries');
   }
 
-  isInTitle(title) {
-    return title.search(this.queries.q) !== -1;
+  filterByQuery(recipe) {
+    return recipe.name.includes(this.queries.q) || 
+    recipe.description.includes(this.queries.q) ||
+    recipe.ingredients.some(ingredient => {
+      return ingredient.ingredient.includes(this.queries.q);
+    });
   }
 
-  isInIngredients(ingredients) {
-    for (let i = 0; i < ingredients.length; i++) {
-      if (ingredients[i].ingredient.search(this.queries.q) !== -1) {
-        return true;
-      }
-    }
-    return false;
+  filterByApplianceTag(recipe) {
+    return this.queries.appliance.length === 0 ||
+      recipe.appliance.toLowerCase() === this.queries.appliance[0].name.toLowerCase();
   }
 
-  isInDescription(description) {
-    return description.search(this.queries.q) !== -1;
+  filterByUstensilTags(recipe) {
+    return this.queries.ustensils.length === 0 ||
+    this.queries.ustensils.every(ustensil => {
+      return recipe.ustensils.map(ust => ust.toLowerCase()).includes(ustensil.name.toLowerCase());
+    });
   }
 
-  hasIngredients(recipeIngredients) {
-    let hasAllIngredients = true;
-
-    if (this.queries.ingredients.length) {
-      this.queries.ingredients.forEach(ingredient => {
-        if (
-          !recipeIngredients.includes(ingredient.name.toLowerCase())
-        ) {
-          hasAllIngredients = false;
-        }
+  filterByIngredientTags(recipe) {
+    return this.queries.ingredients.length === 0 ||
+    this.queries.ingredients.every(tagIngredient => {
+      return recipe.ingredients.some(recipeIngredient => {
+        return recipeIngredient.ingredient.toLowerCase() === tagIngredient.name.toLowerCase();
       });
-    }
-
-    return hasAllIngredients;
-  }
-
-  hasappliances(recipeAppliance) {
-    if (
-      this.queries.appliance.length &&
-      !this.queries.appliance
-        .map(app => app.name.toLowerCase())
-        .includes(recipeAppliance)
-    ) {
-      return false;
-    }
-
-    return true;
-  }
-
-  hasUstensils(recipeUstensils) {
-    let hasAllUstensils = true;
-    if (this.queries.ustensils.length) {
-      this.queries.ustensils
-        .map(ust => ust.name.toLowerCase())
-        .forEach(ust => {
-          if (!recipeUstensils.includes(ust)) {
-            hasAllUstensils = false;
-          }
-        });
-    }
-
-    return hasAllUstensils;
-  }
-
-  isSelected(recipe) {
-    return (this.isInTitle(recipe.name) ||
-    this.isInIngredients(recipe.ingredients) ||
-    this.isInDescription(recipe.description)) &&
-    this.hasIngredients(
-      recipe.ingredients.map(ing => ing.ingredient.toLowerCase()),
-    ) &&
-    this.hasappliances(recipe.appliance.toLowerCase()) &&
-    this.hasUstensils(recipe.ustensils.map(ust => ust.toLowerCase()));
-
+    });
   }
 
   async searchQuery() {
-    return Promise.filter(
-      this.data,
-      (recipe => this.isSelected(recipe)),
-    );
+    return this.data
+      .filter((recipe) => this.filterByQuery(recipe))
+      .filter((recipe) => this.filterByIngredientTags(recipe))
+      .filter((recipe) => this.filterByApplianceTag(recipe))
+      .filter((recipe) => this.filterByUstensilTags(recipe));
   }
 
   getIngredients() {
@@ -133,7 +90,6 @@ export default class SearchEngine {
   }
 
   async searchTags() {
-    console.log('OK');
     return Promise.props({
       ingredients: this.getIngredients(),
       appliances: this.getAppliances(),
