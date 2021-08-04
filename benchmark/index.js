@@ -1,6 +1,4 @@
-import * as Promise from 'bluebird';
-
-export default class SearchEngine {
+class SearchEngine {
 
   constructor(data, queries = null) {
     this._data = data;
@@ -10,7 +8,6 @@ export default class SearchEngine {
       this._queries.appliance = JSON.parse(this._queries.appliance);
       this._queries.ustensils = JSON.parse(this._queries.ustensils);
     }
-    console.log(this._queries);
   }
 
   get data() {
@@ -58,43 +55,16 @@ export default class SearchEngine {
     });
   }
 
-  async searchQuery() {
+  searchQuery() {
     return this.data
       .filter((recipe) => this.filterByQuery(recipe))
       .filter((recipe) => this.filterByIngredientTags(recipe))
       .filter((recipe) => this.filterByApplianceTag(recipe))
       .filter((recipe) => this.filterByUstensilTags(recipe));
   }
-
-  getIngredients() {
-    const ingredients = [];
-    this.data.forEach(recipe => {
-      recipe.ingredients.forEach(ingredient => {
-        ingredients.push(ingredient.ingredient);
-      });
-    });
-
-    return new Set(ingredients);
-  }
-
-  getAppliances() {
-    return new Set(this.data.map(recipe => recipe.appliance));
-  }
-
-  getUstensils() {
-    const ustensils = [];
-    this.data.forEach(recipe => {
-      ustensils.push(...recipe.ustensils);
-    });
-
-    return new Set(ustensils);
-  }
-
-  async searchTags() {
-    return Promise.props({
-      ingredients: this.getIngredients(),
-      appliances: this.getAppliances(),
-      ustensils: this.getUstensils(),
-    });
-  }
 }
+
+new SearchEngine(
+  data,
+  queries,
+).searchQuery();
