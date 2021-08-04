@@ -61,7 +61,7 @@ export default class SearchEngine {
     return hasAllIngredients;
   }
 
-  hasappliances(recipeAppliance) {
+  hasAppliances(recipeAppliance) {
     if (
       this.queries.appliance.length &&
       !this.queries.appliance
@@ -96,9 +96,8 @@ export default class SearchEngine {
     this.hasIngredients(
       recipe.ingredients.map(ing => ing.ingredient.toLowerCase()),
     ) &&
-    this.hasappliances(recipe.appliance.toLowerCase()) &&
+    this.hasAppliances(recipe.appliance.toLowerCase()) &&
     this.hasUstensils(recipe.ustensils.map(ust => ust.toLowerCase()));
-
   }
 
   async searchQuery() {

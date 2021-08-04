@@ -69,10 +69,12 @@ export default class RecipeCard extends HTMLDivElement {
   }
 
   setDescription(description = '') {
+    this.descriptionContainer = document.createElement('div');
+    this.descriptionContainer.classList.add('ellipsis', 'recipe-card__instructions');
     this.description = document.createElement('p');
-    this.description.classList.add('recipe-card__instructions');
     this.description.textContent = description;
-    this.cardBody.appendChild(this.description);
+    this.descriptionContainer.appendChild(this.description);
+    this.cardBody.appendChild(this.descriptionContainer);
   }
 
   init() {
