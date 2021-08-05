@@ -1,70 +1,38 @@
-class SearchEngine {
-
-  constructor(data, queries = null) {
-    this._data = data;
-    this._queries = queries;
-    if (this._queries) {
-      this._queries.ingredients = JSON.parse(this._queries.ingredients);
-      this._queries.appliance = JSON.parse(this._queries.appliance);
-      this._queries.ustensils = JSON.parse(this._queries.ustensils);
-    }
-  }
-
-  get data() {
-    return this._data;
-  }
-
-  set data(_) {
-    throw new Error('Can\'t set data');
-  }
-
-  get queries() {
-    return this._queries;
-  }
-
-  set queries(_) {
-    throw new Error('Can\'t set queries');
-  }
-
-  filterByQuery(recipe) {
-    return recipe.name.includes(this.queries.q) || 
-    recipe.description.includes(this.queries.q) ||
-    recipe.ingredients.some(ingredient => {
-      return ingredient.ingredient.includes(this.queries.q);
-    });
-  }
-
-  filterByApplianceTag(recipe) {
-    return this.queries.appliance.length === 0 ||
-      recipe.appliance.toLowerCase() === this.queries.appliance[0].name.toLowerCase();
-  }
-
-  filterByUstensilTags(recipe) {
-    return this.queries.ustensils.length === 0 ||
-    this.queries.ustensils.every(ustensil => {
-      return recipe.ustensils.map(ust => ust.toLowerCase()).includes(ustensil.name.toLowerCase());
-    });
-  }
-
-  filterByIngredientTags(recipe) {
-    return this.queries.ingredients.length === 0 ||
-    this.queries.ingredients.every(tagIngredient => {
-      return recipe.ingredients.some(recipeIngredient => {
-        return recipeIngredient.ingredient.toLowerCase() === tagIngredient.name.toLowerCase();
-      });
-    });
-  }
-
-  searchQuery() {
-    return this.data
-      .filter((recipe) => this.filterByQuery(recipe))
-      .filter((recipe) => this.filterByIngredientTags(recipe))
-      .filter((recipe) => this.filterByApplianceTag(recipe))
-      .filter((recipe) => this.filterByUstensilTags(recipe));
-  }
+function filterByQuery(recipe, queries) {
+  return recipe.name.includes(queries.q) || 
+  recipe.description.includes(queries.q) ||
+  recipe.ingredients.some(ingredient => {
+    return ingredient.ingredient.includes(queries.q);
+  });
 }
 
-new SearchEngine(
-  data,
-  queries,
-).searchQuery();
+function filterByApplianceTag(recipe, queries) {
+  return queries.appliance.length === 0 ||
+    recipe.appliance.toLowerCase() === queries.appliance[0].name.toLowerCase();
+}
+
+function filterByUstensilTags(recipe, queries) {
+  return queries.ustensils.length === 0 ||
+  queries.ustensils.every(ustensil => {
+    return recipe.ustensils.map(ust => ust.toLowerCase()).includes(ustensil.name.toLowerCase());
+  });
+}
+
+function filterByIngredientTags(recipe, queries) {
+  return queries.ingredients.length === 0 ||
+  queries.ingredients.every(tagIngredient => {
+    return recipe.ingredients.some(recipeIngredient => {
+      return recipeIngredient.ingredient.toLowerCase() === tagIngredient.name.toLowerCase();
+    });
+  });
+}
+
+function searchQuery(data, queries) {
+  return data
+    .filter((recipe) => filterByQuery(recipe, queries))
+    .filter((recipe) => filterByIngredientTags(recipe, queries))
+    .filter((recipe) => filterByApplianceTag(recipe, queries))
+    .filter((recipe) => filterByUstensilTags(recipe, queries));
+}
+
+searchQuery(data, queries);
