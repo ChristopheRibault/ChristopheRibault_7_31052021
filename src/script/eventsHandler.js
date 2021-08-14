@@ -22,6 +22,7 @@ export default class EventsHandler {
 
   sendRequest(data) {
     const url = encodeURI(this.createUrl(data));
+    console.time('x');
     fetch(url)
       .then(res => {
         return res.json();
@@ -32,6 +33,7 @@ export default class EventsHandler {
           { detail: res },
         ),
       ));
+    console.timeEnd('x');
   }
 
   init() {

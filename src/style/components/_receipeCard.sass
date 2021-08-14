@@ -6,7 +6,6 @@
   height: 364px
   max-height: 90vw
   border-radius: 5px
-  overflow: hidden
   &__img
     width: 100%
     height: 178px
@@ -15,6 +14,7 @@
     background-color: #e7e7e7
     height: 100%
     display: grid
+    padding: .5em
     grid-gap: 10px
     grid-template-columns: 50% 1fr 8em
     grid-template-rows: 1fr 3fr
@@ -45,10 +45,40 @@
   &__instructions
     grid-column: 2/span 2
     grid-row: 2
-    max-height: 100%
     text-overflow: ellipsis
-    overflow: hidden
-    display: -webkit-box
-    -webkit-line-clamp: 6
-    -webkit-box-orient: vertical
+    // display: -webkit-box
+    // -webkit-line-clamp: 6
+    // -webkit-box-orient: vertical
 
+.ellipsis
+  overflow: hidden
+  max-height: 100%
+  line-height: 15px
+
+
+.ellipsis:before
+  content:""
+  float: left
+  width: 5px
+  height: 100%
+
+.ellipsis > p
+  float: right
+  width: 100%
+  height: 100%
+  margin-left: -5px
+  overflow: hidden
+
+.ellipsis:after
+  content: "\02026"
+  box-sizing: content-box
+  -webkit-box-sizing: content-box
+  -moz-box-sizing: content-box
+  float: right 
+  position: relative
+  top: -15px 
+  left: 100% 
+  width: 3em 
+  margin-left: -3em
+  padding-right: 5px
+  text-align: right
